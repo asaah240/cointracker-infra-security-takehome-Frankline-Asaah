@@ -57,15 +57,15 @@ resource "google_sql_database_instance" "instance" {
  *****************************************/
 resource "google_sql_database" "app" {
   project  = var.project.id
-  name     = data.google_secret_manager_secret_version.db-secret_v2.secret_data
+  name     = data.google_secret_manager_secret_version.db-secret_v7.secret_data
   instance = google_sql_database_instance.instance.name
 }
 
 resource "google_sql_user" "app_user" {
   project  = var.project.id
-  name     = data.google_secret_manager_secret_version.db-secret_v3.secret_data
+  name     = data.google_secret_manager_secret_version.db-secret_v6.secret_data
   instance = google_sql_database_instance.instance.name
-  password = data.google_secret_manager_secret_version.db-secret_v4.secret_data
+  password = data.google_secret_manager_secret_version.db-secret_v5.secret_data
 }
 
 data "google_secret_manager_secret_version" "my-secret" {
@@ -78,17 +78,17 @@ data "google_secret_manager_secret_version" "my-secret" {
 data "google_secret_manager_secret_version" "db_secret_v2" {
   provider = google-beta
   secret   = "db-secret"
-  version  = "2"
+  version  = "7"
 }
 
 data "google_secret_manager_secret_version" "db_secret_v3" {
   provider = google-beta
   secret   = "db-secret"
-  version  = "3" 
+  version  = "6" 
 }
 
 data "google_secret_manager_secret_version" "db_secret_v4" {
   provider = google-beta
   secret   = "db-secret"
-  version  = "4"
+  version  = "5"
 }
